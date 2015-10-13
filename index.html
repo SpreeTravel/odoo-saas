@@ -31,21 +31,72 @@
         <h2>
 <a id="all-you-need-to-deploy-odoo-former-openerp-saas" class="anchor" href="#all-you-need-to-deploy-odoo-former-openerp-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>All you need to deploy Odoo (former OpenERP) SaaS.</h2>
 
-<p>The present document provides an overview on how to easily deploy SaaS solutions with Odoo (formerly known as OpenERP)</p>
+<p>The present document provides an overview on how to easily deploy SaaS solutions with Odoo (formerly known as OpenERP).</p>
 
 <h3>
 <a id="odoo-addons-to-provide-saas" class="anchor" href="#odoo-addons-to-provide-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Odoo addons to provide SaaS</h3>
 
-<p>Our solution makes use of IT-Projects LLC's <a href="https://github.com/yelizariev/odoo-saas-tools">Odoo SaaS Tools</a> which provide the following SaaS structure:</p>
+<p>Our solution makes use of IT-Projects LLC's <a href="https://github.com/yelizariev/odoo-saas-tools">Odoo SaaS Tools</a> which provides the following SaaS structure:</p>
 
 <ul>
-<li>SaaS Portal (one): main database</li>
-<li>SaaS Server (many): technical database to control client databases. SaaS server creates, edits and deletes databases. Each SaaS Server can be installed on a separate machine (e.g. VPS).</li>
-<li>SaaS Client (many): client database to be used by customers. Each SaaS Client is attached to a SaaS Server.</li>
+<li>
+<em>SaaS Portal</em> (one): main database</li>
+<li>
+<em>SaaS Server</em> (many): technical database to control client databases. SaaS server creates, edits and deletes databases. Each SaaS Server can be installed on a separate machine (e.g. VPS).</li>
+<li>
+<em>SaaS Client</em> (many): client database to be used by customers. Each SaaS Client is attached to a SaaS Server.</li>
 </ul>
 
 <h3>
 <a id="docker-image-to-provide-odoo-saas-solutions" class="anchor" href="#docker-image-to-provide-odoo-saas-solutions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker Image to provide Odoo SaaS solutions</h3>
+
+<p>We have created a <a href="https://www.docker.com">Docker</a> image for our solution, you can find it pulling <code>cenitsaas/cenitodoo</code> from <a href="https://hub.docker.com/r/cenitsaas/cenitodoo">DockerHub</a>.</p>
+
+<h4>
+<a id="database-setup" class="anchor" href="#database-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Database Setup</h4>
+
+<p>In order to have the image connect to a PostgreSQL database you have a couple of options available:</p>
+
+<ol>
+<li>You could use the traditional linking to a PostgreSQL container in the same manner the official Docker image for Odoo does.</li>
+<li>You could set up a custom PostgreSQL server through the environment variables
+
+<ul>
+<li>
+<code>PGHOST</code>: the hostname of the system where the PostgreSQL server is running.</li>
+<li>
+<code>PGPORT</code>: the system port on which the PostgreSQL server is listening (defaults to <code>5432</code> if omitted).</li>
+<li>
+<code>PGUSER</code>: the username to use when connecting to the PostgreSQL server.</li>
+<li>
+<code>PGPASSWORD</code>: the password for the provided user.</li>
+</ul>
+</li>
+<li>If deploying the image on Amazon Web Services' Elastic Beanstalk, you could choose to launch a new RDS instance and the image will figure out how to connect to it.</li>
+</ol>
+
+<h4>
+<a id="saas-setup" class="anchor" href="#saas-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>SaaS setup</h4>
+
+<p>There are a few environment variables that you'll have to take into consideration while deploying the image.</p>
+
+<h5>
+<a id="mandatory" class="anchor" href="#mandatory" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mandatory</h5>
+
+<ul>
+<li>
+<code>MAIN_DOMAIN</code>: identifies the <em>SaaS Portal</em>. Commonly it is a first level domain name (e.g: <code>example.com</code>).</li>
+<li>
+<code>SERVER_SUBDOMAIN</code>: identifies the first <em>SaaS Server</em>. Common a direct subdomain of <code>MAIN_DOMAIN</code> (e.g: <code>server1.example.com</code>)</li>
+</ul>
+
+<h5>
+<a id="optional" class="anchor" href="#optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optional</h5>
+
+<ul>
+<li>
+<code>CUSTOM_REPOS</code>: a comma-separated list of (currently) public Git repositories containing Odoo addons that should be available on the solution (e.g: <code>https://github.com/myself/myrepo.git,https://github.com/someoneelse/hisrepo.git</code>).</li>
+</ul>
 
 <h3>
 <a id="configurations-needed-to-deploy-the-odoo-saas-docker-image-on-amazon-elastic-beanstalk-webservice" class="anchor" href="#configurations-needed-to-deploy-the-odoo-saas-docker-image-on-amazon-elastic-beanstalk-webservice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configurations needed to deploy the Odoo SaaS Docker image on Amazon Elastic Beanstalk webservice</h3>
