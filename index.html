@@ -17,13 +17,32 @@
       <header>
         <h1>Odoo SaaS</h1>
         <p>Deploy SaaS solutions using Odoo with ease</p>
+
+        <p class="view"><a href="https://github.com/openjaf/odoo-saas">View the Project on GitHub <small>openjaf/odoo-saas</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/openjaf/odoo-saas/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/openjaf/odoo-saas/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/openjaf/odoo-saas">View On <strong>GitHub</strong></a></li>
+        </ul>
       </header>
       <section>
-        <h3>
-<a id="all-that-you-need-to-deploy-odoo-former-openerp-saas-on--docker--aws-ebs-" class="anchor" href="#all-that-you-need-to-deploy-odoo-former-openerp-saas-on--docker--aws-ebs-" aria-hidden="true"><span class="octicon octicon-link"></span></a>All that you need to deploy Odoo (former OpenERP) SaaS on ( Docker + AWS EBS ).</h3>
+        <h2>
+<a id="all-you-need-to-deploy-odoo-former-openerp-saas" class="anchor" href="#all-you-need-to-deploy-odoo-former-openerp-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>All you need to deploy Odoo (former OpenERP) SaaS.</h2>
+
+<p>The present document provides an overview on how to easily deploy SaaS solutions with Odoo (formerly known as OpenERP)</p>
 
 <h3>
 <a id="odoo-addons-to-provide-saas" class="anchor" href="#odoo-addons-to-provide-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Odoo addons to provide SaaS</h3>
+
+<p>Our solution makes use of IT-Projects LLC's <a href="https://github.com/yelizariev/odoo-saas-tools">Odoo SaaS Tools</a> which provide the following SaaS structure:</p>
+
+<ul>
+<li>SaaS Portal (one): main database</li>
+<li>SaaS Server (many): technical database to control client databases. SaaS server creates, edits and deletes databases. Each SaaS Server can be installed on a separate machine (e.g. VPS).</li>
+<li>SaaS Client (many): client database to be used by customers. Each SaaS Client is attached to a SaaS Server.</li>
+</ul>
 
 <h3>
 <a id="docker-image-to-provide-odoo-saas-solutions" class="anchor" href="#docker-image-to-provide-odoo-saas-solutions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker Image to provide Odoo SaaS solutions</h3>
@@ -31,8 +50,8 @@
 <h3>
 <a id="configurations-needed-to-deploy-the-odoo-saas-docker-image-on-amazon-elastic-beanstalk-webservice" class="anchor" href="#configurations-needed-to-deploy-the-odoo-saas-docker-image-on-amazon-elastic-beanstalk-webservice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configurations needed to deploy the Odoo SaaS Docker image on Amazon Elastic Beanstalk webservice</h3>
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<h2>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h2>
 
 <p>For more details contact us at <a href="mailto:support@cenitsaas.com">support at cenitsaas dot com</a></p>
       </section>
