@@ -31,7 +31,69 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h2>
+        <h1>
+<a id="odoo-saas" class="anchor" href="#odoo-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Odoo SaaS</h1>
+
+<p>We use cutting edge technologies: <em>Docker</em>, <em>nGinx</em>, <em>Amazon Web Services</em> (<em>AWS</em>): <em>EC2</em>, <em>ELB</em>, <em>EBS</em> &amp; <em>RDS</em>.</p>
+
+<p>The technology we have developed is 100% Open Source and available at Github. The add­ons include SaaS solution management from a central Odoo, setting up and subscription to service plans.</p>
+
+<ul>
+<li>Launches a tenant (Odoo instance) for each entity (person or company) subscribed to the SaaS. </li>
+<li>Service plans management 
+
+<ul>
+<li>Listing of required and optional add­ons. </li>
+<li>Database maximum size. </li>
+<li>Additional services (support, data migration, etc). </li>
+</ul>
+</li>
+<li>Associate add­ons to a Plan. 
+
+<ul>
+<li>Required add­ons are included in the template database used to create each new tenant, so that they result pre­installed when a new account is created on the SaaS service.</li>
+<li>Required add­ons are the same in all tenants sharing a Plan. </li>
+<li>Optional add­ons appear on each tenant as available to be installed at will. </li>
+<li>From the central system managing the SaaS service a new required add­on can be included into a Plan and then perform a deployment action for that add­on to be included in all tenants created from the Plan. </li>
+</ul>
+</li>
+<li>Although the primary add­on management is performed in a Plan basis, from the central system specific actions can be executed for a particular tenant. </li>
+<li>
+<p>Create SaaS Client databases: </p>
+
+<ul>
+<li>manually from SaaS Portal backend </li>
+<li>by client after choosing subdomain (similar to ​<a href="https://www.odoo.com/page/start%E2%80%8B%C2%AD">https://www.odoo.com/page/start​­</a>) via module <code>saas_portal_start</code>. </li>
+<li>by client after choosing database template (e.g. template for POS, template for ECommerce etc) with auto­generated subdomain (e.g. demo­12345.odoo.com) ­via module <code>saas_server_templates</code>.</li>
+<li>by client after signing up via­ module <code>saas_portal_signup</code>.</li>
+</ul>
+</li>
+<li><p>Prepare templates for new SaaS Client database. You are able to connect to template database, install modules you need, edit configuration, edit access rights for customer etc. Such template database will be exactly what a customer will see after database creating. </p></li>
+<li>Connect to existing SaaS Client database as administrator. </li>
+<li>Control SaaS Client database from SaaS Portal backend: 
+
+<ul>
+<li>install, update, delete add­ons.</li>
+<li>configure parameters (e.g. Max Allowed Users).</li>
+</ul>
+</li>
+<li>Collect information from client databases (number of users, disk space usage, etc.).</li>
+<li>Notify customers about news by sending messages to Whole Company messaging group (under development).</li>
+<li>Show message at the top of a page (e.g. Your free trial will expire in about 4 hours Register now to add 15 days for free!) (under development).</li>
+<li>Ability for users to reset their own passwords (Forgot your password?).</li>
+<li>Support for SSL with a digital certificate. </li>
+<li>Ability to monitor the databases system wise.</li>
+<li>Ability to send automatic invoices every month.</li>
+<li>Remove the default Odoo logo and name in the server. </li>
+<li>Automatic Backup of the databases. </li>
+<li>Restoration of the backed up databases. </li>
+<li>Payment gateway integration. </li>
+<li>SaaS Administration with SaaS Panel.</li>
+<li>SaaS Panel Administration with Activate/ Deactivate/ Terminate options for Tenant Database.</li>
+<li>SaaS Tenant Technical Support option with Pseudo Admin.</li>
+</ul>
+
+<h2>
 <a id="all-you-need-to-deploy-odoo-former-openerp-saas" class="anchor" href="#all-you-need-to-deploy-odoo-former-openerp-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>All you need to deploy Odoo (former OpenERP) SaaS.</h2>
 
 <p>The present document provides an overview on how to easily deploy SaaS solutions with Odoo (formerly known as OpenERP).</p>
