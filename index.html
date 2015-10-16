@@ -169,27 +169,84 @@
 <p>Amazon Web Services include a handful of services that provide everything you may need to deploy Odoo SaaS.</p>
 
 <h4>
-<a id="elastic-compute-cloud-ec2" class="anchor" href="#elastic-compute-cloud-ec2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elastic Compute Cloud (EC2)</h4>
+<a id="elastic-compute-cloud-ec2" class="anchor" href="#elastic-compute-cloud-ec2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elastic Compute Cloud (<em>EC2</em>)</h4>
 
-<p>Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that can be used to build and host software systems.</p>
-
-<h4>
-<a id="relational-database-service-rds" class="anchor" href="#relational-database-service-rds" aria-hidden="true"><span class="octicon octicon-link"></span></a>Relational Database Service (RDS)</h4>
-
-<p>Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud. It provides cost-efficient, resizable capacity for an industry-standard relational database and manages common database administration tasks.</p>
+<p>Amazon Elastic Compute Cloud (<em>Amazon EC2</em>) is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that can be used to build and host software systems.</p>
 
 <h4>
-<a id="elastic-beanstalk-ebs" class="anchor" href="#elastic-beanstalk-ebs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elastic Beanstalk (EBS)</h4>
+<a id="relational-database-service-rds" class="anchor" href="#relational-database-service-rds" aria-hidden="true"><span class="octicon octicon-link"></span></a>Relational Database Service (<em>RDS</em>)</h4>
 
-<p>Amazon Elastic Beanstalk (Amazon EBS) allows to quickly deploy and manage applications in the AWS cloud without worrying about the infrastructure that runs those applications. AWS Elastic Beanstalk reduces management complexity without restricting choice or control. Simply upload the application and Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.</p>
+<p>Amazon Relational Database Service (<em>Amazon RDS</em>) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud. It provides cost-efficient, resizable capacity for an industry-standard relational database and manages common database administration tasks.</p>
 
 <h4>
-<a id="deploying-cenitsaascenitodoo-with-ebs" class="anchor" href="#deploying-cenitsaascenitodoo-with-ebs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploying <code>cenitsaas/cenitodoo</code> with EBS</h4>
+<a id="elastic-beanstalk-ebs" class="anchor" href="#elastic-beanstalk-ebs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elastic Beanstalk (<em>EBS</em>)</h4>
+
+<p>Amazon Elastic Beanstalk (<em>Amazon EBS</em>) allows to quickly deploy and manage applications in the AWS cloud without worrying about the infrastructure that runs those applications. AWS Elastic Beanstalk reduces management complexity without restricting choice or control. Simply upload the application and Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.</p>
+
+<h4>
+<a id="deploying-cenitsaascenitodoo-with-ebs" class="anchor" href="#deploying-cenitsaascenitodoo-with-ebs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploying <code>cenitsaas/cenitodoo</code> with <em>EBS</em>
+</h4>
+
+<p>It is actually pretty easy... but you'll first need to do a thing or two.</p>
+
+<ol>
+<li>Navigate to the <a href="https://github.com/openjaf/odoo-saas-ebs">Odoo SaaS EBS</a> repository on Github.
+
+<ul>
+<li>You can clone the repository to your computer (<code>$ git clone https://github.com/openjaf/odoo-saas-ebs.git</code>)</li>
+<li>Or simply copy the content of the <code>Dockerrun.aws.json</code> file and paste it into a plain text file on your system.</li>
+</ul>
+</li>
+<li>Within the <code>Dockerrun.aws.json</code> file, in the <code>environment</code> section inside <code>containerDefinitions</code>, change the values of the <code>MAIN_DOMAIN</code> and <code>SERVER_SUBDOMAIN</code> as instructed in the <strong>SaaS setup</strong> section above.
+
+<ul>
+<li>You can also change the value of the <code>CUSTOM_REPOS</code> to match your needs.</li>
+<li>You should be aware that, if you're using a <em>Domain Name</em> provider other than <em>Amazon Route S3</em> itself and planning to use a Load Balancer as recommended, the value for <code>MAIN_DOMAIN</code> cannot be a first-level domain (e.g: example.com) instead use a <strong>www</strong> subdomain of your root domain (e.g: <a href="http://www.example.com">www.example.com</a>). Further details on the DNS configuration section.</li>
+</ul>
+</li>
+<li>Save your changes and compress the file using <code>zip</code> the resulting file should be a zipped bundle containing solely the <code>Dockerrun.aws.json</code> file.</li>
+</ol>
+
+<p>Enough foreplay, lets get real.</p>
+
+<ol>
+<li>Log in to your AWS account and head up to the <em>EBS</em> dashboard.</li>
+<li>Create a new Application and name it.</li>
+<li>Select <strong>Web Server Environment</strong>.</li>
+<li>Choose <em>Multi-container Docker</em> for the <code>Predefined configuration</code> and <em>Load balancing, auto scaling</em> for the <code>Environment type</code>.</li>
+<li>In the <strong>Application version</strong>, as <code>Source</code> choose <em>Upload your own</em> and select the <strong>zipped</strong> <code>Dockerrun.aws.json</code> created earlier.
+
+<ul>
+<li>You can modify the <em>Deployment limits</em> if you want to, but there's no need to do that right now.</li>
+</ul>
+</li>
+<li>Now you need to choose a <em>Name</em> and <em>URL</em> for the environment. The <em>Name</em> part is not much trouble, now the <em>URL</em> you'll have to make sure is unique, otherwise <em>EBS</em> won't let you carry on.</li>
+<li>Choose to <em>Create an RDS DB Instance with this environment</em>.</li>
+<li>In the <strong>Configuration Details</strong> page choose the hardware you'll be using. 
+
+<ul>
+<li>Notice that the <em>Free tier</em> eligible hardware is quite enough for testing purposes (though probably not so much for production environments).</li>
+</ul>
+</li>
+<li>Tag your environment if you will.</li>
+<li>In the <strong>RDS Configuration</strong> there are a couple of <em>Must-Do</em>s:
+
+<ul>
+<li>The <em>DB engine</em> must be set to <code>postgres</code>.</li>
+<li>The <em>Username</em> must be set to <code>odoo</code>.</li>
+<li>All other settings are left to your consideration.</li>
+</ul>
+</li>
+<li>Choose the <strong>Permissions</strong> you will be using.</li>
+<li>Review the information so far and launch the application.</li>
+</ol>
+
+<p>Now, while you wait for the <em>Environment</em> to be built and launched, head up to the next section, in order to complete the final steps of the journey. </p>
 
 <h3>
 <a id="pointing-a-godaddy-domain-name-to-a-newly-deployed-odoo-saas" class="anchor" href="#pointing-a-godaddy-domain-name-to-a-newly-deployed-odoo-saas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pointing a GoDaddy Domain Name to a newly deployed Odoo SaaS</h3>
 
-<p>The one issue with this approach is that since Amazon’s Load Balancers don’t get an Elastic IP address (this means that its IP address will change if the Load Balancer is rebooted) the main domain won’t be possible to point at the Load Balancer since it must be done with an A Record (a direct association from the domain name to an IP address). Instead, we will be creating a CNAME rule (an alias) for all subdomains to be redirected to the load balancer. </p>
+<p>The one issue with this approach is that since Amazon’s Load Balancers don’t get an Elastic IP address (this means that its IP address will change if the Load Balancer is rebooted) the main domain won’t be possible to point at the Load Balancer since it must be done with an A Record (a direct association from the domain name to an IP address). Instead, we will be creating a CNAME rule (an alias) for all subdomains to be redirected to the load balancer and use <code>www.&lt;rootdomain&gt;.&lt;com or else&gt;</code> as the <code>MAIN_DOMAIN</code>.</p>
 
 <ol>
 <li>Sign in to your GoDaddy.com account <img src="https://lh4.googleusercontent.com/6KrzJzSiyCrd1dDFJlddxQkNkmPrP2LOfFKx6ncPtDtt_axTqWWvKHhVo2uJaEgnd4FBoJDI6oM7vhFJHgw6Wpj4xRz5dISOJcrOFavZ73Sde1qe4jID05WHkdPCTzKT=s1600" alt="">
