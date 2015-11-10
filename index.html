@@ -237,7 +237,57 @@
 <li>All other settings are left to your consideration.</li>
 </ul>
 </li>
-<li>Choose the <strong>Permissions</strong> you will be using.</li>
+<li>
+<p>Choose the <strong>Permissions</strong> you will be using.</p>
+
+<ul>
+<li>
+<p>An important note at this point is that your <em>Instance profile</em> should have an attached <em>Policy</em> that allows, among other things, to launch ECS instances.</p>
+
+<ul>
+<li>Go to your <a href="https://console.aws.amazon.com/iam/home#policies">IAM Management Console policies</a>.</li>
+<li>Click the <em>Create Policy</em> button.</li>
+<li>Select the <em>Create Your Own Policy</em> option.</li>
+<li>
+<p>Choose a <em>Name</em> (required) and <em>Description</em> (optional) and on the <em>Policy Document</em> paste the following text: </p>
+
+<p><code>{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecs:StartTask",
+                "ecs:StopTask",
+                "ecs:RegisterContainerInstance",
+                "ecs:DeregisterContainerInstance",
+                "ecs:DescribeContainerInstances",
+                "ecs:DiscoverPollEndpoint",
+                "ecs:Submit*",
+                "ecs:Poll"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::elasticbeanstalk-*/resources/environments/logs/*"
+        }
+    ]
+}</code></p>
+</li>
+<li>Head on to the <a href="https://console.aws.amazon.com/iam/home#roles">IAM Management Console roles</a>.</li>
+<li>Select the Role you will be using.</li>
+<li>Under the <strong>Permisions</strong> tab click the <em>Attach Policy</em> button.</li>
+<li>Search for and select the policy just created.</li>
+<li>Click the <em>Attach policy</em> button and you're set.</li>
+</ul>
+</li>
+<li>Return to the <strong>Permissions</strong> page and make sure to select the role.</li>
+</ul>
+</li>
 <li>Review the information so far and launch the application.</li>
 </ol>
 
