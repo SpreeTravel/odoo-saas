@@ -160,7 +160,7 @@
 
 <ul>
 <li>
-<code>CUSTOM_REPOS</code>: a comma-separated list of (currently) public Git repositories containing Odoo addons that should be available on the solution (e.g: <code>https://github.com/me/myrepo.git,https://github.com/him/hisrepo.git</code>).</li>
+<code>CUSTOM_REPOS</code>: a space-separated list of (currently) public Git repositories containing Odoo addons that should be available on the solution (e.g: <code>https://github.com/me/myrepo.git https://github.com/him/hisrepo.git</code>).</li>
 </ul>
 
 <h3>
@@ -194,10 +194,18 @@
 
 <ul>
 <li>You can clone the repository to your computer (<code>$ git clone https://github.com/openjaf/odoo-saas-ebs.git</code>)</li>
-<li>Or simply copy the content of the <code>Dockerrun.aws.json</code> file and paste it into a plain text file on your system.</li>
+<li>Or simply copy the content of one of the <code>Dockerrun.aws.json</code> file and paste it into a plain text file on your system.
+
+<ul>
+<li>
+<code>linked</code> refers to using a linked PostgreSQL container for the database.</li>
+<li>
+<code>rds</code> refers to using Amazon RDS for the database.</li>
 </ul>
 </li>
-<li>Within the <code>Dockerrun.aws.json</code> file, in the <code>environment</code> section inside <code>containerDefinitions</code>, change the values of the <code>MAIN_DOMAIN</code> and <code>SERVER_SUBDOMAIN</code> as instructed in the <strong>SaaS setup</strong> section above.
+</ul>
+</li>
+<li>Within the <code>Dockerrun.aws.json</code> file, in the <code>environment</code> section inside the <code>cenitodoo</code> entry of <code>containerDefinitions</code>, change the values of the <code>MAIN_DOMAIN</code> and <code>SERVER_SUBDOMAIN</code> as instructed in the <strong>SaaS setup</strong> section above.
 
 <ul>
 <li>You can also change the value of the <code>CUSTOM_REPOS</code> to match your needs.</li>
@@ -221,6 +229,9 @@
 </ul>
 </li>
 <li>Now you need to choose a <em>Name</em> and <em>URL</em> for the environment. The <em>Name</em> part is not much trouble, now the <em>URL</em> you'll have to make sure is unique, otherwise <em>EBS</em> won't let you carry on.</li>
+<li>If (and only if) you are using the <code>rds</code> version of the Dockerrun.aws.json file:
+
+<ul>
 <li>Choose to <em>Create an RDS DB Instance with this environment</em>.</li>
 <li>In the <strong>Configuration Details</strong> page choose the hardware you'll be using. 
 
@@ -235,6 +246,8 @@
 <li>The <em>DB engine</em> must be set to <code>postgres</code>.</li>
 <li>The <em>Username</em> must be set to <code>odoo</code>.</li>
 <li>All other settings are left to your consideration.</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
