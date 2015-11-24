@@ -229,7 +229,8 @@
 </ul>
 </li>
 <li>Now you need to choose a <em>Name</em> and <em>URL</em> for the environment. The <em>Name</em> part is not much trouble, now the <em>URL</em> you'll have to make sure is unique, otherwise <em>EBS</em> won't let you carry on.</li>
-<li>If (and only if) you are using the <code>rds</code> version of the Dockerrun.aws.json file:
+<li>
+<p>If (and only if) you are using the <code>rds</code> version of the Dockerrun.aws.json file:</p>
 
 <ul>
 <li>Choose to <em>Create an RDS DB Instance with this environment</em>.</li>
@@ -249,6 +250,8 @@
 </ul>
 </li>
 </ul>
+
+<p>An important note here is the fact that the <code>max_connections</code> parameter of the <em>RDS instance</em> should be set to a value higher than <code>64</code>, since this is the maximum number of connections <em>Odoo</em> will attempt to open before it starts closing any. A value under <code>64</code> will result eventually on system crashing due to lack of access to the database.</p>
 </li>
 <li>
 <p>Choose the <strong>Permissions</strong> you will be using.</p>
